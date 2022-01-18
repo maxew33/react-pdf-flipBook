@@ -10,4 +10,9 @@
     display: grid;
     place-content: center;
     background: #222;
+    color: #ccc;
+}
+
+.btn-container{
+    display: flex;
 }
