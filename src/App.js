@@ -1,25 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
 
-function App() {
+import SinglePagePDFViewer from "./components/pdf/single-page";
+import AllPagesPDFViewer from "./components/pdf/all-pages";
+
+/* This is required only if the project file is located 
+inside the app. Otherwise you can use the external link of the pdf file*/
+import samplePDF from "./sample.pdf";
+
+import "./styles.css";
+
+export default function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h4>Single Page</h4>
+      <SinglePagePDFViewer pdf={samplePDF} />
+
+      <h4>All Pages</h4>
+      <div className="all-page-container">
+        <AllPagesPDFViewer pdf={samplePDF} />
+      </div>
     </div>
   );
 }
-
-export default App;
