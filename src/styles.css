@@ -11,8 +11,17 @@
     place-content: center;
     background: #222;
     color: #ccc;
+    overflow: hidden;
 }
 
 .btn-container{
     display: flex;
+}
+
+.flipbook{
+    cursor: grab;
+}
+
+.cover{
+    background: purple;
 }
