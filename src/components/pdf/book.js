@@ -2,17 +2,15 @@ import React, { useState, useRef } from "react"
 import { Document, Page } from "react-pdf"
 import HTMLFlipBook from 'react-pageflip'
 import useSound from "use-sound"
-import { v4 as uuidv4 } from "uuid"
 
 import pageFlip from "../../page-flip.mp3"
 
 export default function Book(props) {
-    const [numPages, setNumPages] = useState(null)
+    const [numPages, setNumPages] = useState(0)
     const [currentPage, setCurrentPage] = useState(0)
 
     const [play] = useSound(pageFlip)
 
-    const pagesId = []
     const ref = useRef()
 
     const pdf = props.pdf
@@ -28,11 +26,7 @@ export default function Book(props) {
     }
 
     function onDocumentLoadSuccess(e) {
-
-        console.log(e.width)
-
         setNumPages(e.numPages)
-
     }
 
     const handleFlip = (e) => {
@@ -61,7 +55,7 @@ export default function Book(props) {
                         className="flipbook"
                         width={pageWidth}
                         height={pageHeight}
-                        size="fixed"
+                        size="stretch"
                         autoSize= {true}
                         maxShadowOpacity={.5}
                         mobileScrollSupport= {false}
