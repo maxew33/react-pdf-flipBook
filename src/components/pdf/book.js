@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useCallback } from "react"
+import React, { useState, useRef } from "react"
 import { Document, Page } from "react-pdf"
 import HTMLFlipBook from 'react-pageflip'
 import useSound from "use-sound"
@@ -18,23 +18,21 @@ export default function Book(props) {
     const pdf = props.pdf
     const size = props.size
 
-    let pageWidth = size.width*.4  
-    
-    let pageHeight = pageWidth *(29.7/21)
+    let pageHeight = size.height * .8
 
+    let pageWidth = pageHeight * (21 / 29.7)
 
     const style = {
-        width: 2*pageWidth + 'px',
-        height: pageWidth *(29.7/21) + 'px'
+        width: 2 * pageWidth + 'px',
+        height: pageHeight + 'px'
     }
 
     function onDocumentLoadSuccess(e) {
 
-        //when the pdf is loaded, I set the pages and create a unique id for the loop
+        console.log(e.width)
+
         setNumPages(e.numPages)
-        for (let i = 0; i < e.numPages; i++) {
-            pagesId.push(uuidv4())
-        }
+
     }
 
     const handleFlip = (e) => {
@@ -58,19 +56,21 @@ export default function Book(props) {
                 onLoadSuccess={onDocumentLoadSuccess}
             >
                 <div className="flipbook-container"
-                style={style}>
+                    style={style}>
                     <HTMLFlipBook
                         className="flipbook"
                         width={pageWidth}
                         height={pageHeight}
-                        size="stretch"
+                        size="fixed"
+                        autoSize= {true}
                         maxShadowOpacity={.5}
+                        mobileScrollSupport= {false}
                         ref={ref}
                         onFlip={(e) => handleFlip(e)}>
-                        <div></div>
+                        <div className='cover'></div>
                         {Array.from(new Array(numPages), (el, index) => (
-                            <div>
-                                <Page key={pagesId[index]} pageNumber={index + 1} width={pageWidth} />
+                            <div key={index}>
+                                <Page pageNumber={index + 1} width={pageWidth} />
                             </div>
                         ))}
                         <div></div>
@@ -79,7 +79,7 @@ export default function Book(props) {
                 </div>
             </Document>
             <div className="page-selector">
-                <button onClick={prevButtonClick}>prev {size.width}</button>
+                <button onClick={prevButtonClick}>prev</button>
                 {currentPage} of {numPages}
                 <button onClick={nextButtonClick}>next</button>
             </div>

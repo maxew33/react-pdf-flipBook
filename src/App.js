@@ -8,9 +8,9 @@ import useWindowSize from "./components/use-window-size";
 
 /* This is required only if the project file is located 
 inside the app. Otherwise you can use the external link of the pdf file*/
-import samplePDF from "./Trucs-en-vrac.pdf";
+import samplePDF from "./CondoLiving.pdf";
 
-import "./styles.css";
+import "./style.css";
 
 export default function App() {
 
@@ -25,13 +25,12 @@ export default function App() {
 
 {
 orientation === 'paysage' ? 
-      <><h4>pdf book</h4>
-      <Book pdf={samplePDF} size={size}/></>
+      <Book pdf={samplePDF} size={size}/>
 :
-      <><h4>Single Page</h4>
-      <SinglePagePDFViewer pdf={samplePDF} /></>
+      <SinglePagePDFViewer pdf={samplePDF} size={size} />
   }
-      {/* <h4>All Pages</h4>
+
+      {/*
       <div className="all-page-container">
         <AllPagesPDFViewer pdf={samplePDF} />
       </div> */}
@@ -39,3 +38,6 @@ orientation === 'paysage' ?
     </div>
   );
 }
+
+/* add to package.json before build : 
+  "homepage": "https://www.maxime-malfilatre.com/sandbox/alexPdfBook" */
